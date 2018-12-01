@@ -10,7 +10,7 @@ pub fn compute_repeat_frequency(freqs: &Vec<i32>) -> i32 {
         if seen_freqs.contains(&curr_freq) {
             break;
         }
-        seen_freqs.insert(*&curr_freq);
+        seen_freqs.insert(curr_freq);
         curr_freq += freq;
     }
     curr_freq
