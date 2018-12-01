@@ -13,7 +13,9 @@ fn main() -> std::io::Result<()> {
 
     let result_freq = day1::compute_final_frequency(&split);
 
-    println!("{}", result_freq);
+    let second_result_freq = day1::compute_repeat_frequency(&split);
+    println!("Day 1 Part 1: {}", result_freq);
+    println!("Day 1 Part 2: {}", second_result_freq);
 
 
 

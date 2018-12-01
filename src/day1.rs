@@ -1,14 +1,25 @@
+use std::collections::HashSet;
 pub fn compute_final_frequency(freqs: &Vec<i32>) -> i32 {
     freqs.iter().fold(0, |sum, x| {sum + x})
 }
 
 pub fn compute_repeat_frequency(freqs: &Vec<i32>) -> i32 {
-    unimplemented!()
+    let mut curr_freq = 0i32;
+    let mut seen_freqs = HashSet::new();
+    for &freq in freqs.iter().cycle() {
+        if seen_freqs.contains(&curr_freq) {
+            break;
+        }
+        seen_freqs.insert(*&curr_freq);
+        curr_freq += freq;
+    }
+    curr_freq
 }
 
 #[cfg(test)]
 mod tests{
     use super::compute_final_frequency;
+    use super::compute_repeat_frequency;
     #[test]
     fn test1() {
         let input1 = [1, -2, 3, 1].to_vec();
@@ -47,7 +58,7 @@ mod tests{
     }
     #[test]
     fn test7() {
-        let input1 = [6, 3, 8, 5, -6].to_vec();
+        let input1 = [-6, 3, 8, 5, -6].to_vec();
         let result = compute_repeat_frequency(&input1);
         assert_eq!(result, 5)
     }
