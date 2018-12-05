@@ -17,12 +17,15 @@ fn find_duplicates(list: &[String]) -> HashMap<String, i32> {
     }
     result
 }
-fn find_matching_letters(list: &[&str]) -> Option<String> {
-    let first_removed_list: Vec<String> = list.iter().map(|&s| {remove_letter(s, 0)}).collect();
-    let dup_map = find_duplicates(&first_removed_list);
-    for (key, value) in dup_map {
-        if value > 1 {
-            return Some(key);
+pub fn find_matching_letters(list: &[&str]) -> Option<String> {
+    let strings_len = list[0].len();
+    for i in 0..strings_len {
+        let removed_list: Vec<String> = list.iter().map(|&s| {remove_letter(s, i)}).collect();
+        let dup_map = find_duplicates(&removed_list);
+        for (key, value) in dup_map {
+            if value > 1 {
+                return Some(key);
+            }
         }
     }
     None
@@ -44,5 +47,29 @@ mod tests {
         let result = find_matching_letters(&input);
         assert!(result.is_some());
         assert_eq!(result.unwrap(), "bcde");
+    }
+
+    #[test]
+    fn find_multiple_duplicates() {
+
+        let input = ["bbcde", "abcde"];
+        let result = find_matching_letters(&input);
+        assert!(result.is_some());
+        assert_eq!(result.unwrap(), "bcde");
+
+
+        let input2 = ["ajdef", "akdef"];
+        let result2 = find_matching_letters(&input2);
+        assert!(result2.is_some());
+        assert_eq!(result2.unwrap(), "adef");
+
+    }
+
+    #[test]
+    fn online_test_case() {
+        let input = ["abcde", "fghij", "klmno", "pqrst", "fguij", "axcye", "wvxyz"];
+        let result = find_matching_letters(&input);
+        assert!(result.is_some());
+        assert_eq!(result.unwrap(), "fgij");
     }
 }

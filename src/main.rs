@@ -19,6 +19,19 @@ fn main() -> std::io::Result<()> {
     println!("Day 1 Part 2: {}", second_result_freq);
 
 
+    // Day 2
+    let file2 = File::open("./puzzle_inputs/day2.txt")?;
+    let mut input2 = String::new();
+    let mut buf2 = BufReader::new(file2);
+    buf2.read_to_string(&mut input2)?;
+    let input_vec: Vec<&str> = input2.split("\n").filter(|x| {x.len() >= 1}).collect();
+
+    let results = day2::find_matching_letters(&input_vec);
+    match results {
+        Some(s) => println!("Day 2 Part 2: {}", s),
+        None => println!("Uh-oh...")
+    }
+
 
     Ok(())
 }
