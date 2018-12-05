@@ -5,3 +5,4 @@ authors = ["Michael J. Curry <curry@cs.umd.edu>"]
 edition = "2018"
 
 [dependencies]
+regex = "1"

@@ -4,6 +4,7 @@ use std::io::BufReader;
 mod util;
 mod day1;
 mod day2;
+mod day3;
 fn main() -> std::io::Result<()> {
     // Day 1
     let file = File::open("./puzzle_inputs/day11.txt")?;
