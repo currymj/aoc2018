@@ -33,6 +33,25 @@ fn main() -> std::io::Result<()> {
         None => println!("Uh-oh...")
     }
 
+    //Day 3
+    day3()?;
+
+
+    Ok(())
+}
+
+fn day3() -> std::io::Result<()> {
+    let file = File::open("./puzzle_inputs/day3.txt")?;
+
+    let mut input = String::new();
+    let mut buf = BufReader::new(file);
+    buf.read_to_string(&mut input)?;
+
+
+    let input_vec: Vec<&str> = input.split("\n").filter(|x| {x.len() >= 1}).collect();
+
+    let result = day3::find_overlaps(&input_vec);
+    println!("Day 3 Part 1: {}", result);
 
     Ok(())
 }

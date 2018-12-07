@@ -22,7 +22,7 @@ impl ElfClaim {
     }
 }
 fn parse_claim(s: &str) -> Option<ElfClaim> {
-    let re = Regex::new(r"#(?P<claimnum>\d+) @ (?P<topx>\d),(?P<topy>\d): (?P<width>\d)x(?P<height>\d)").unwrap();
+    let re = Regex::new(r"#(?P<claimnum>\d+) @ (?P<topx>\d+),(?P<topy>\d+): (?P<width>\d+)x(?P<height>\d+)").unwrap();
     let caps = re.captures(s)?;
 
     // bad error handling!
@@ -39,7 +39,7 @@ fn parse_claims(s: &[&str]) -> Vec<ElfClaim> {
     s.iter().flat_map(| &s| {parse_claim(s)}).collect()
 }
 
-fn find_overlaps(s: &[&str]) -> usize {
+pub fn find_overlaps(s: &[&str]) -> usize {
     let parsed_structs = parse_claims(s);
     let mut seen_once_set = HashSet::new();
     let mut seen_twice_set = HashSet::new();
@@ -74,7 +74,7 @@ mod tests {
 
     #[test]
     fn aoc_testcase() {
-        let tests = ["#1 @ 1,3: 4x4", "#2 @ 3,1: 4x4", "#3 @ 5,5: 2x2"];
+        let tests = ["#1 @ 1,3: 4x4", "#2 @ 3,1: 4x4", "#34 @ 55,55: 22x22"];
         let overlapping_area = find_overlaps(&tests);
         assert_eq!(overlapping_area, 4);
     }
